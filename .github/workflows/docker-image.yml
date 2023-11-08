@@ -1,0 +1,29 @@
+name: Yandex app CI
+
+on:
+  push:
+    branches:
+     - main
+
+env:
+  IMAGE: crp5a700iald4ruj6tg5/catgpt
+  REGISTRY: cr.yandex
+  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Login to GitHub Package Registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login {{ env.REGISTRY }} --username oauth --password-stdin
+        
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
