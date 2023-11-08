@@ -7,9 +7,7 @@ on:
 
 env:
   IMAGE: crp5a700iald4ruj6tg5/catgpt
-  REGISTRY: cr.yandex
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,13 +15,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Login to Yandex Container Registry
-        run: docker login --username iam --password ${{ secrets.IAM_TOKEN }} {{ env.REGISTRY }}
-        
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v1
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t cr.yandex/$IMAGE:$IMAGE_TAG .
+          docker push cr.yandex/$IMAGE:$IMAGE_TAG
+        
+      # - name: Build and push
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: true
+      #     tags: cr.yandex/$IMAGE:latest
