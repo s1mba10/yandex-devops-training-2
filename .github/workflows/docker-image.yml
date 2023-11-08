@@ -17,8 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Login to GitHub Package Registry
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login {{ env.REGISTRY }} --username oauth --password-stdin
+      - name: Login to Yandex Container Registry
+        run: docker login {{ env.REGISTRY }} --username oauth --password ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Build and push
         uses: docker/build-push-action@v5
