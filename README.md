@@ -56,6 +56,9 @@ http_response_count{code="200",handler="/ping",method="get"} 2
 
     https://github.com/GoogleContainerTools/distroless
 
+![Screenshot 2023-11-12 at 12 24 52](https://github.com/s1mba10/yandex-devops-training-2/assets/101098236/11c03720-e2d7-4a37-9a8b-0a40d19ae190)
+
+
 
 * Опубликовать получившийся image в Yandex Container Registry (docker push)
 
@@ -70,6 +73,8 @@ http_response_count{code="200",handler="/ping",method="get"} 2
 * С помощью Terraform развернуть стенд с приложением:
     - сетевой балансировщик
     - две виртуальных машины под ним
+  
+![Screenshot 2023-11-12 at 12 21 44](https://github.com/s1mba10/yandex-devops-training-2/assets/101098236/f1257869-d2db-4a91-99b0-766d2466be68)
 
 На каждой виртуальной машине должен быть запущен:
 1) Контейнер с приложением. Тот самый контейнер, который собирался выше.
@@ -92,6 +97,8 @@ https://cloud.yandex.ru/marketplace/products/yc/container-optimized-image
     * Разбивку по типам нарисованных котивов (дневных и ночных)
     * Разбивку по кодам ответов, хендлерам и методам
 https://cloud.yandex.ru/docs/monitoring/quickstart
+
+![dashboard](https://github.com/s1mba10/yandex-devops-training-2/assets/101098236/1ab10ef4-c951-4cf7-8bfa-cc5cb8d5ba88)
 
 
 * Задача со звёздочкой: дополнительно инструментировать приложение и доработать дашборд для того, чтобы получить графики времён обработки запросов в разрезе handler и method
